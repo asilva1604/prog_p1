@@ -1,32 +1,39 @@
+#include <vector>
 #include "Image.hpp"
 
 namespace prog
 {
   Image::Image(int w, int h, const Color &fill)
   {
+    std::vector <Color> row (w, fill);              //auxiliary vector that represents one row
+    std::vector<std::vector<Color>> aux (h, row);   //auxiliary vector that represents the whole matrix
+    matrix_ = aux;                                  //assigning auxiliary matrix to matrix_
+    width_ = w;                                     //assigning width
+    height_ = h;                                    //assigning height
   }
   Image::~Image()
   {
+    //empty constructor as we do not use dynamic memory
   }
   int Image::width() const
   {
-    return -1;
+    return width_;  //returns width of matrix
   }
   int Image::height() const
   {
-    return -1;
+    return height_; //returns height of matrix
   }
 
-  // TODO: remove this DUMMY_color variable once you have appropriate fields for representing image pixels.
-  Color DUMMY_color;
+
 
   Color& Image::at(int x, int y)
   {
-    return DUMMY_color;
+    auto &pixel = matrix_[y][x];   //acesses the pixel
+    return pixel;                  //returns the pixel reference
   }
 
   const Color& Image::at(int x, int y) const
   {
-    return DUMMY_color;
+    return matrix_[y][x];          //returns the immutable pixel reference
   }
 }
