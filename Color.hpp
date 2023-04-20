@@ -7,7 +7,11 @@ namespace prog
   class Color
   {
     private:
-      // TODO: private fields required for color representation.
+      //r, g and b values
+      rgb_value r_;      
+      rgb_value g_;
+      rgb_value b_;
+
     public:
       Color();
       Color(const Color& c);
