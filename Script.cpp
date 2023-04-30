@@ -33,10 +33,12 @@ namespace prog {
 
     void Script::run() {
         string command;
+        bool opened = false;
         while (input >> command) {
             cout << "Executing command '" << command << "' ..." << endl;
             if (command == "open") {
                 open();
+                opened = true;
                 continue;
             }
             if (command == "blank") {
@@ -44,11 +46,19 @@ namespace prog {
                 continue;
             }
             // Other commands require an image to be previously loaded.
-            if (command == "save") {
-                save();
-                continue;
-            } 
-            // TODO ...
+            //added flag to check whether file is opened
+            if (opened) {
+                if (command == "save") {
+                    save();
+                    continue;
+                }
+                if (command == "invert") {
+                    invert();
+                    continue;
+                }
+            }
+
+            
 
         }
     }
@@ -72,5 +82,16 @@ namespace prog {
         string filename;
         input >> filename;
         saveToPNG(filename, image);
+    }
+    void Script::invert() {
+        int w = image->width();
+        int h = image->height();
+        for (int i = 0; i < w; i++) {
+            for (int j = 0; j < h; j++) {
+                image->at(i, j).red() = 255 - image->at(i, j).red();
+                image->at(i, j).blue() = 255 - image->at(i, j).blue();
+                image->at(i, j).green() = 255 - image->at(i, j).green();
+            }
+        }
     }
 }
