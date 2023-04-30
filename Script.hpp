@@ -24,7 +24,7 @@ namespace prog
     void open();
     void blank();
     void save();
-    void invert();
+    void invert(); // Transforms each pixel to its inverted color
     void to_gray_scale(); // Transforms each pixel to its grayscale representation
     void replace(int r1, int g1, int b1, int r2, int g2, int b2); // Replace all pixels with a specific color to another color
     void fill(int x, int y, int w, int h, int r, int g, int b); // Fills a rectangle(width=w, height=h) with a specific color
