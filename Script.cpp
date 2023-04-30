@@ -95,10 +95,12 @@ namespace prog {
         saveToPNG(filename, image);
     }
     void Script::invert() {
+        //Transforms each individual pixel (r, g, b) to (255-r,255-g,255-b).
         int w = image->width();
         int h = image->height();
         for (int i = 0; i < w; i++) {
             for (int j = 0; j < h; j++) {
+                //loop iterating over each single pixel
                 image->at(i, j).red() = 255 - image->at(i, j).red();
                 image->at(i, j).blue() = 255 - image->at(i, j).blue();
                 image->at(i, j).green() = 255 - image->at(i, j).green();
@@ -107,10 +109,13 @@ namespace prog {
     }
 
     void Script::to_gray_scale() {
+        //Transforms each individual pixel (r, g, b) to (v, v, v) where v = 
+        //(r + g + b)/3. You should use integer division without rounding to compute v.
         int w = image->width();
         int h = image->height();
         for (int i = 0; i < w; i++) {
             for (int j = 0; j < h; j++) {
+                //loop iterating over each single pixel
                 int v = (image->at(i, j).red() + 
                 image->at(i, j).blue() + 
                 image->at(i, j).green() ) / 3;
@@ -123,15 +128,20 @@ namespace prog {
     }
 
     void Script::replace(int r1, int g1, int b1, int r2, int g2, int b2) {
+        //Replaces all (r1,  g1, b1) pixels by (r2,  g2, b2).
         int w = image->width();
         int h = image->height();
         for (int i = 0; i < w; i++) {
             for (int j = 0; j < h; j++) {
+                //loop iterating over each single pixel
                 if (
                     image->at(i,j).red() == r1 &&
                     image->at(i,j).green() == g1 &&
                     image->at(i, j).blue() == b1
-                ) {
+                ) 
+                //this condition checks if pixel meets criteria
+                {
+                    //replace old colors with new ones
                     image->at(i, j).red() = r2;
                     image->at(i, j).blue() = b2;
                     image->at(i, j).green() = g2;
