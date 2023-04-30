@@ -60,6 +60,13 @@ namespace prog {
                     to_gray_scale();
                     continue;
                 }
+
+                if (command == "replace") {
+                    int r1, g1, b1, r2, g2, b2;
+                    input >> r1 >> g1 >> b1 >> r2 >> g2 >> b2;
+                    replace(r1,g1,b1,r2,g2,b2);
+
+                }
             }
 
             
@@ -111,6 +118,24 @@ namespace prog {
                 image->at(i, j).red() = v;
                 image->at(i, j).blue() = v;
                 image->at(i, j).green() = v;
+            }
+        }
+    }
+
+    void Script::replace(int r1, int g1, int b1, int r2, int g2, int b2) {
+        int w = image->width();
+        int h = image->height();
+        for (int i = 0; i < w; i++) {
+            for (int j = 0; j < h; j++) {
+                if (
+                    image->at(i,j).red() == r1 &&
+                    image->at(i,j).green() == g1 &&
+                    image->at(i, j).blue() == b1
+                ) {
+                    image->at(i, j).red() = r2;
+                    image->at(i, j).blue() = b2;
+                    image->at(i, j).green() = g2;
+                }
             }
         }
     }
