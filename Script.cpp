@@ -43,6 +43,7 @@ namespace prog {
             }
             if (command == "blank") {
                 blank();
+                opened = true;
                 continue;
             }
             // Other commands require an image to be previously loaded.
@@ -62,10 +63,14 @@ namespace prog {
                 }
 
                 if (command == "replace") {
-                    int r1, g1, b1, r2, g2, b2;
-                    input >> r1 >> g1 >> b1 >> r2 >> g2 >> b2;
-                    replace(r1,g1,b1,r2,g2,b2);
+                    replace();
+                    continue;
 
+                }
+
+                if (command == "fill") {
+                    fill();
+                    continue;   
                 }
             }
 
@@ -127,8 +132,10 @@ namespace prog {
         }
     }
 
-    void Script::replace(int r1, int g1, int b1, int r2, int g2, int b2) {
+    void Script::replace() {
         //Replaces all (r1,  g1, b1) pixels by (r2,  g2, b2).
+        int r1, g1, b1, r2, g2, b2;
+        input >> r1 >> g1 >> b1 >> r2 >> g2 >> b2;
         int w = image->width();
         int h = image->height();
         for (int i = 0; i < w; i++) {
@@ -146,6 +153,17 @@ namespace prog {
                     image->at(i, j).blue() = b2;
                     image->at(i, j).green() = g2;
                 }
+            }
+        }
+    }
+
+    void Script::fill() {
+        int x, y, w, h;
+        Color fill;
+        input >> x >> y >> w >> h >> fill;
+        for (int i = x; i < x+w; i++) {
+            for (int j = y; j < y+h; j++) {
+                image->at(i,j) = fill;
             }
         }
     }
