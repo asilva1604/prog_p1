@@ -72,6 +72,11 @@ namespace prog {
                     fill();
                     continue;   
                 }
+                
+                if (command == "add") {
+                    add();
+                    continue;
+                }
 
                 if (command == "h_mirror") {
                     h_mirror();
@@ -201,5 +206,30 @@ namespace prog {
                 image->at(i,h-1-j) = temp;
             }
         }
+    }
+
+    void Script::add() {
+        int r, g, b, x, y;
+        string filename;
+        input >> filename;
+        input >> r >> g >> b >> x >> y;
+        Image *img = loadFromPNG(filename);
+        for (int i = 0; i < img->width(); i++) {
+            for (int j = 0; j < img->height(); j++) {
+                //loop iterating over each single pixel
+                if (
+                    img->at(i,j).red() == r &&
+                    img->at(i,j).green() == g &&
+                    img->at(i, j).blue() == b
+                ){continue;}
+                
+                image->at(i+x,j+y).red() = img->at(i,j).red();
+                image->at(i+x,j+y).green() = img->at(i,j).green();
+                image->at(i+x,j+y).blue() = img->at(i,j).blue();
+
+            }
+        }
+        delete img;
+        
     }
 }
