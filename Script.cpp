@@ -72,10 +72,17 @@ namespace prog {
                     fill();
                     continue;   
                 }
+
+                if (command == "h_mirror") {
+                    h_mirror();
+                    continue;
+                }
+
+                if (command == "v_mirror") {
+                    v_mirror();
+                    continue;
+                }
             }
-
-            
-
         }
     }
     void Script::open() {
@@ -159,11 +166,39 @@ namespace prog {
 
     void Script::fill() {
         int x, y, w, h;
-        Color fill;
+        Color fill; //this is the color that we will use
         input >> x >> y >> w >> h >> fill;
         for (int i = x; i < x+w; i++) {
             for (int j = y; j < y+h; j++) {
-                image->at(i,j) = fill;
+                //loop iterating over each single pixel
+                image->at(i,j) = fill;  //changes color of pixel
+            }
+        }
+    }
+
+    void Script::h_mirror() {
+        int w = image->width();
+        int h = image->height();
+
+        for (int i = 0; i < w / 2; i++) {
+            for (int j = 0; j < h; j++) {
+                //loop iterating over each single pixel
+                Color temp = image->at(w - 1 - i, j);   //
+                image->at(w - 1 - i, j) = image->at(i,j);
+                image->at(i,j) = temp;
+            }
+        }
+    }
+
+    void Script::v_mirror() {
+        int w = image->width();
+        int h = image->height();
+
+        for (int j = 0; j < h/2; j++) {
+            for (int i = 0; i < w; i++) {
+                Color temp = image->at(i, j);
+                image->at(i, j) = image->at(i, h - 1 -j);
+                image->at(i,h-1-j) = temp;
             }
         }
     }
