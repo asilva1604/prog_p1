@@ -87,6 +87,11 @@ namespace prog {
                     v_mirror();
                     continue;
                 }
+
+                if (command == "crop") {
+                    crop();
+                    continue;
+                }
             }
         }
     }
@@ -231,5 +236,18 @@ namespace prog {
         }
         delete img;
         
+    }
+
+    void Script::crop() {
+        int x,y,w,h;
+        input >> x >> y >> w >> h;
+        Image *newImg = new Image(w,h);
+        for (int i = x; i < x+w; i++) {
+            for (int j = y; j < y+h; j++) {
+                newImg->at(i-x,j-y) = image->at(i,j);
+            }
+        }
+        clear_image_if_any();
+        image = newImg;
     }
 }
