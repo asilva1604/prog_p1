@@ -87,6 +87,11 @@ namespace prog {
                     v_mirror();
                     continue;
                 }
+
+                if (command == "rotate_left"){
+                    rotate_left();
+                    continue;
+                }                
             }
         }
     }
@@ -231,5 +236,10 @@ namespace prog {
         }
         delete img;
         
+    }
+
+    void Script::rotate_left() {
+        int w = image->width();
+        int h = image->height();
     }
 }
