@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <algorithm>
 #include "Script.hpp"
 #include "PNG.hpp"
 #include "XPM2.hpp"
@@ -90,6 +91,11 @@ namespace prog {
 
                 if (command == "crop") {
                     crop();
+                    continue;
+                }
+
+                if (command == "median_filter") {
+                    median_filter();
                     continue;
                 }
             }
@@ -247,6 +253,53 @@ namespace prog {
                 newImg->at(i-x,j-y) = image->at(i,j);
             }
         }
+        clear_image_if_any();
+        image = newImg;
+    }
+
+    void Script::median_filter() {
+        int ws;
+        input >> ws;
+
+        int w = image->width();
+        int h = image->height();
+
+        Image *newImg = new Image(w,h);
+
+        for (int i = 0; i < w; i++) {
+            for (int j = 0; j < h; j++) {
+                vector<Color> neighbours;
+                //max(0, x - ws / 2) <= nx <= min(width() - 1, x + ws / 2), where ws / 2 denotes integer division, and
+                //max(0, y - ws / 2) <= ny <= min(height() - 1, y + ws /2).
+
+                for (int ii = max(0, i - ws/2); ii <= min(w-1, i + ws / 2); ii++) {
+                    for (int jj = max(0, j - ws / 2); jj <= min(h-1, j + ws / 2); jj++) {
+                        neighbours.push_back(image->at(ii, jj));
+                    }
+                }
+
+                vector<int> rr,gg,bb;
+                for (const auto &c : neighbours) {
+                    rr.push_back(c.red());
+                    gg.push_back(c.green());
+                    bb.push_back(c.blue());
+                }
+                sort(rr.begin(), rr.end());
+                sort(gg.begin(), gg.end());
+                sort(bb.begin(), bb.end());
+                if (rr.size() % 2 != 0) {
+                    newImg->at(i,j).red() = rr.at(rr.size() / 2);
+                    newImg->at(i,j).green() = gg.at(gg.size() / 2);
+                    newImg->at(i,j).blue() = bb.at(bb.size() / 2);
+                } else {
+                    newImg->at(i,j).red() = (rr.at(rr.size() / 2 - 1) + rr.at(rr.size() / 2)) / 2;
+                    newImg->at(i,j).green() = (gg.at(gg.size() / 2 - 1) + gg.at(gg.size() / 2)) / 2;
+                    newImg->at(i,j).blue() = (bb.at(bb.size() / 2 - 1) + bb.at(bb.size() / 2)) / 2;
+                }
+          
+            }
+        }
+
         clear_image_if_any();
         image = newImg;
     }
