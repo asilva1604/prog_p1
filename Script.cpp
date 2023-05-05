@@ -103,6 +103,11 @@ namespace prog {
                     median_filter();
                     continue;
                 }
+
+                if (command == "xpm2_save") {
+                    xpm2_save();
+                    continue;
+                }
             }
         }
     }
@@ -314,5 +319,11 @@ namespace prog {
         input >> ff;
         clear_image_if_any();
         image = loadFromXPM2(ff);
+    }
+
+    void Script::xpm2_save() {
+        string file;
+        input >> file;
+        saveToXPM2(file, image);
     }
 }
