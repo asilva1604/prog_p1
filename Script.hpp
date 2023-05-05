@@ -33,6 +33,8 @@ namespace prog
     void add(); //copies pixels stored in filename except neutral pixels 
     void crop(); //Crop the image, reducing it to all pixels contained in the rectangle defined by top-left corner (x, y), width w, and height h.You may assume that the rectangle is always within the current image bounds.
     void median_filter(); //Apply a median filter with window size ws >= 3 to the current image.
+    void xpm2_open();
+    void xpm2_save();
   };
 }
 #endif

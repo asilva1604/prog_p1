@@ -47,6 +47,12 @@ namespace prog {
                 opened = true;
                 continue;
             }
+
+            if (command == "xpm2_open") {
+                xpm2_open();
+                opened = true;
+                continue;
+            }
             // Other commands require an image to be previously loaded.
             //added flag to check whether file is opened
             if (opened) {
@@ -66,7 +72,6 @@ namespace prog {
                 if (command == "replace") {
                     replace();
                     continue;
-
                 }
 
                 if (command == "fill") {
@@ -96,6 +101,11 @@ namespace prog {
 
                 if (command == "median_filter") {
                     median_filter();
+                    continue;
+                }
+
+                if (command == "xpm2_save") {
+                    xpm2_save();
                     continue;
                 }
             }
@@ -302,5 +312,18 @@ namespace prog {
 
         clear_image_if_any();
         image = newImg;
+    }
+
+    void Script::xpm2_open() {
+        string ff;
+        input >> ff;
+        clear_image_if_any();
+        image = loadFromXPM2(ff);
+    }
+
+    void Script::xpm2_save() {
+        string file;
+        input >> file;
+        saveToXPM2(file, image);
     }
 }
