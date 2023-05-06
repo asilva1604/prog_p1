@@ -108,6 +108,16 @@ namespace prog {
                     xpm2_save();
                     continue;
                 }
+                
+                if (command == "rotate_right"){
+                    rotate_right();
+                    continue;
+                }  
+
+                if (command == "rotate_left"){
+                    rotate_left();
+                    continue;
+                } 
             }
         }
     }
@@ -325,5 +335,33 @@ namespace prog {
         string file;
         input >> file;
         saveToXPM2(file, image);
+    }
+    
+    void Script::rotate_left() {
+        int w = image->width();
+        int h = image->height();
+        Image *transposed = new Image(h,w);
+        for (int y = 0; y < h; y++) {
+            for (int x = 0; x < w; x++) {
+                transposed->at(y,x) = image->at(x,y);
+            }
+        }
+        transposed->reverseMatrix();
+        clear_image_if_any();
+        image = transposed;
+    }
+
+    void Script::rotate_right() {
+        int w = image->width();
+        int h = image->height();
+        Image *transposed = new Image(h,w);
+        for (int y = 0; y < h; y++) {
+            for (int x = 0; x < w; x++) {
+                transposed->at(y,x) = image->at(x,y);
+            }
+        }
+        transposed->reverseMatrixMembers();
+        clear_image_if_any();
+        image = transposed;
     }
 }

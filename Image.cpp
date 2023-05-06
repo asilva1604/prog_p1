@@ -1,4 +1,5 @@
 #include <vector>
+#include <algorithm>
 #include "Image.hpp"
 
 namespace prog
@@ -35,5 +36,16 @@ namespace prog
   const Color& Image::at(int x, int y) const
   {
     return matrix_[y][x];          //returns the immutable pixel reference
+  }
+
+  void Image::reverseMatrix() {
+    //reverses the matrix
+    std::reverse(matrix_.begin(), matrix_.end());
+  }
+
+  void Image::reverseMatrixMembers() {
+    for (auto &a : matrix_) {
+      std::reverse(a.begin(), a.end());
+    }
   }
 }

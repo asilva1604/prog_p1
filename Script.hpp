@@ -35,6 +35,9 @@ namespace prog
     void median_filter(); //Apply a median filter with window size ws >= 3 to the current image.
     void xpm2_open();
     void xpm2_save();
+    void rotate_left(); // Rotate image left by 90 degrees.
+    void rotate_right(); // Rotate image right by 90 degrees.
   };
 }
 #endif
+

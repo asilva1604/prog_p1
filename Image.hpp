@@ -20,6 +20,8 @@ namespace prog
     int height() const;
     Color &at(int x, int y);
     const Color &at(int x, int y) const;
+    void reverseMatrix();
+    void reverseMatrixMembers();
   };
 }
 #endif
