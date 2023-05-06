@@ -31,7 +31,7 @@ namespace prog
     void h_mirror(); // Mirrors the image horizontally
     void v_mirror(); // Mirrors the image vertically
     void add(); // Copies pixels stored in filename except neutral pixels 
-    //void rotate_left(); // Rotate image left by 90 degrees.
+    void rotate_left(); // Rotate image left by 90 degrees.
     void rotate_right(); // Rotate image right by 90 degrees.
   };
 }

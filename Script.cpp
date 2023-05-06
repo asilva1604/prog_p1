@@ -93,11 +93,10 @@ namespace prog {
                     continue;
                 }  
 
-                /*if (command == "rotate_left"){
+                if (command == "rotate_left"){
                     rotate_left();
                     continue;
-                }  */     
-                      
+                }     
             }
         }
     }
@@ -244,40 +243,30 @@ namespace prog {
         
     }
 
-    /*void Script::rotate_right() {
-        string filename;
-        input >> filename;
-        Image *img = loadFromPNG(filename);
-        int height = img->height();
-        int width = img->width();
-        Image rotated(height, width);
-
-        for (int i = 0; i < img->width(); i++) {
-            for (int j = 0; j < img->height(); j++) {
-                //loop iterating over each single pixel
-                rotated.at(height - 1 - j,img->width) = img->at(i, j);
-                
+    void Script::rotate_left() {
+        int w = image->width();
+        int h = image->height();
+        Image *transposed = new Image(h,w);
+        for (int y = 0; y < h; y++) {
+            for (int x = 0; x < w; x++) {
+                transposed->at(y,x) = image->at(x,y);
             }
-            
         }
-        delete img;
-        *img = rotated;
-        
-    }*/
+        transposed->reverseMatrix();
+        clear_image_if_any();
+        image = transposed;
+    }
 
     void Script::rotate_right() {
-        int height = image->height();
-        int width = image->width();
-        Image *transposed = new Image(height, width);
-        for (int i = 0; i < image->width(); i++) {
-            for (int j = 0; j < image->height(); j++) {
-                transposed->at(j, i) = image->at(i, j);
+        int w = image->width();
+        int h = image->height();
+        Image *transposed = new Image(h,w);
+        for (int y = 0; y < h; y++) {
+            for (int x = 0; x < w; x++) {
+                transposed->at(y,x) = image->at(x,y);
             }
         }
-        for (int j = 0; j < height; j++) {
-            auto *matrixPointer = &transposed->matrix_;
-            reverse(matrixPointer->at(j).begin(), matrixPointer->at(j).end());
-        }
+        transposed->reverseMatrixMembers();
         clear_image_if_any();
         image = transposed;
     }
