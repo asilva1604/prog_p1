@@ -30,8 +30,8 @@ namespace prog {
     }
 
     rgb_value& Color::red()  {
-        auto &o = this->r_;
-        return o;
+        auto &r = this->r_;
+        return r;
     }
     rgb_value& Color::green()  {
       auto &g = this->g_;

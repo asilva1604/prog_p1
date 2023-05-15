@@ -14,14 +14,14 @@ namespace prog
     int width_;   //width of matrix
     int height_;  //height of matrix
   public:
-    Image(int w, int h, const Color &fill = {255, 255, 255});
-    ~Image();
-    int width() const;
-    int height() const;
-    Color &at(int x, int y);
-    const Color &at(int x, int y) const;
-    void reverseMatrix();
-    void reverseMatrixMembers();
+    Image(int w, int h, const Color &fill = {255, 255, 255}); //construct from args
+    ~Image(); //destructor
+    int width() const;  //getter
+    int height() const; //getter
+    Color &at(int x, int y);  //change color at position (x,y)
+    const Color &at(int x, int y) const;  //get color at position (x,y)
+    void reverseMatrix(); //aux function to reverse the matrix_ vector
+    void reverseMatrixMembers();  //aux function to reverse the vectors that are members of the matrix_ vector
   };
 }
 #endif

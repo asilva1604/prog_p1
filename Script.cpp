@@ -201,6 +201,7 @@ namespace prog {
     }
 
     void Script::fill() {
+        //fills an image with a certain color read from script
         int x, y, w, h;
         Color fill; //this is the color that we will use
         input >> x >> y >> w >> h >> fill;
@@ -213,6 +214,7 @@ namespace prog {
     }
 
     void Script::h_mirror() {
+        //mirrors the image horizontally
         int w = image->width();
         int h = image->height();
 
@@ -227,6 +229,7 @@ namespace prog {
     }
 
     void Script::v_mirror() {
+        //mirrors the image vertically
         int w = image->width();
         int h = image->height();
 
@@ -240,6 +243,7 @@ namespace prog {
     }
 
     void Script::add() {
+        //copies all pixels from filename, except those which are the same color as a neutral color from script input
         int r, g, b, x, y;
         string filename;
         input >> filename;
@@ -265,6 +269,7 @@ namespace prog {
     }
 
     void Script::crop() {
+        //crop the image to rectangle defined by top left corner (x,y), with a size of (w,h)
         int x,y,w,h;
         input >> x >> y >> w >> h;
         Image *newImg = new Image(w,h);
@@ -278,6 +283,7 @@ namespace prog {
     }
 
     void Script::median_filter() {
+        //aplies a median filter to the image with ws >= 3
         int ws;
         input >> ws;
 
@@ -294,24 +300,29 @@ namespace prog {
 
                 for (int ii = max(0, i - ws/2); ii <= min(w-1, i + ws / 2); ii++) {
                     for (int jj = max(0, j - ws / 2); jj <= min(h-1, j + ws / 2); jj++) {
+                        //creates a vector of neighbouring pixels
                         neighbours.push_back(image->at(ii, jj));
                     }
                 }
 
                 vector<int> rr,gg,bb;
                 for (const auto &c : neighbours) {
+                    //creates a vector of all individual color values in te neighbours vector
                     rr.push_back(c.red());
                     gg.push_back(c.green());
                     bb.push_back(c.blue());
                 }
+                //sorting the vectors
                 sort(rr.begin(), rr.end());
                 sort(gg.begin(), gg.end());
                 sort(bb.begin(), bb.end());
                 if (rr.size() % 2 != 0) {
+                    //if number of neighbouring pixels is odd
                     newImg->at(i,j).red() = rr.at(rr.size() / 2);
                     newImg->at(i,j).green() = gg.at(gg.size() / 2);
                     newImg->at(i,j).blue() = bb.at(bb.size() / 2);
                 } else {
+                    //if number of neighouring pixels is even
                     newImg->at(i,j).red() = (rr.at(rr.size() / 2 - 1) + rr.at(rr.size() / 2)) / 2;
                     newImg->at(i,j).green() = (gg.at(gg.size() / 2 - 1) + gg.at(gg.size() / 2)) / 2;
                     newImg->at(i,j).blue() = (bb.at(bb.size() / 2 - 1) + bb.at(bb.size() / 2)) / 2;
@@ -325,6 +336,7 @@ namespace prog {
     }
 
     void Script::xpm2_open() {
+        //opens from xpm2 file
         string ff;
         input >> ff;
         clear_image_if_any();
@@ -332,12 +344,14 @@ namespace prog {
     }
 
     void Script::xpm2_save() {
+        //saves to a xmp2 file
         string file;
         input >> file;
         saveToXPM2(file, image);
     }
     
     void Script::rotate_left() {
+        //rotates image left by 90 degrees
         int w = image->width();
         int h = image->height();
         Image *transposed = new Image(h,w);
@@ -352,6 +366,7 @@ namespace prog {
     }
 
     void Script::rotate_right() {
+        //rotates image right by 90 degrees
         int w = image->width();
         int h = image->height();
         Image *transposed = new Image(h,w);

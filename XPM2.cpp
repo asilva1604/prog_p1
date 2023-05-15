@@ -13,10 +13,12 @@ using namespace std;
 namespace prog {
 
     bool operator<(const Color &first, const Color &second) {
+        //returns if one Color is < than the other
         return (first.red() < second.red() || (first.red() == second.red() && first.green() < second.green()) || (first.red() == second.red() && first.green() == second.green() && first.blue() < second.blue()));
     }
 
     string intToHex(int num) {
+        //converts an int to a string hex number
         const char lookup[] = "0123456789ABCDEF";
         string res(2, '0');
         res[0] = lookup[(num >> 4) & 0xF];
@@ -24,12 +26,14 @@ namespace prog {
         return res;
     }
     string rgbToHex(const Color &c) {
+        //converts a Color value to a hex string
         ostringstream oss;
         oss << "#" << intToHex(c.red()) << intToHex(c.green()) << intToHex(c.blue());
         return oss.str();
     }
 
     Image* loadFromXPM2(const std::string& file) {
+        //loads from XPM2 file
         ifstream ifs;
         ifs.open(file);
         string line, hex;
@@ -62,6 +66,7 @@ namespace prog {
     }
 
     void saveToXPM2(const std::string& file, const Image* image) {
+        //saves too XPM2 file
         ofstream ofs;
         ofs.open(file);
         int w = image->width();
