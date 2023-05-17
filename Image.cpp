@@ -44,6 +44,7 @@ namespace prog
   }
 
   void Image::reverseMatrixMembers() {
+    //reverses each matrix member
     for (auto &a : matrix_) {
       std::reverse(a.begin(), a.end());
     }

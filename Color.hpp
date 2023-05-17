@@ -13,15 +13,15 @@ namespace prog
       rgb_value b_;
 
     public:
-      Color();
-      Color(const Color& c);
-      Color(rgb_value r, rgb_value g, rgb_value b);
-      rgb_value red() const;
-      rgb_value& red();
-      rgb_value green() const;
-      rgb_value& green();
-      rgb_value blue() const;
-      rgb_value& blue();
+      Color();                                      //default constriuctor
+      Color(const Color& c);                        //copy constructor
+      Color(rgb_value r, rgb_value g, rgb_value b); //constructor with r,g and b values
+      rgb_value red() const;                        //getter
+      rgb_value& red();                             //setter
+      rgb_value green() const;                      //getter
+      rgb_value& green();                           //setter
+      rgb_value blue() const;                       //getter
+      rgb_value& blue();                            //setter
   };
 }
 #endif
